@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        crossorigin="anonymous">
+
+  <title>Hello, world!</title>
+
+  <style>
+
+    .time {
+      font-size: 14rem;
+      margin-bottom: 20px;
+    }
+
+    .date {
+      margin-top: 90px;
+      font-size: 4rem;
+    }
+
+    .countdown {
+      font-size: 4rem;
+      margin-top: 120px;
+    }
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <div style="text-align: center">
+    <h1 class="time" id="time">12:07</h1>
+
+    <div class="date">
+      <span id="date">1月13日</span>&nbsp;&nbsp;<span id="week">星期日</span>
+    </div>
+
+    <div class="countdown">
+      距离&nbsp;<span th:text="${countDown.getName()}"></span>&nbsp;还有&nbsp;
+      <span th:text="${countDown.getDays()}"></span>&nbsp;天
+    </div>
+
+
+  </div>
+
+</div>
+
+<script>
+    var date = new Date();
+
+    function update() {
+        date = new Date();
+        var utc8DiffMinutes = date.getTimezoneOffset() + 480;
+        date.setMinutes(date.getMinutes() + utc8DiffMinutes);
+
+        var timeString = date.getHours() + ':' + ('0' + date.getMinutes()).slice(-2);
+        var dateString = (date.getMonth() + 1) + '月' + date.getDate() + '日';
+        var weekList = ['日', '一', '二', '三', '四', '五', '六'];
+        var weekString = '星期' + weekList[date.getDay()];
+
+        document.getElementById("time").innerHTML = timeString;
+        document.getElementById("date").innerHTML = dateString;
+        document.getElementById("week").innerHTML = weekString;
+    }
+
+    update();
+
+    setTimeout(function () {
+        update();
+        setInterval("update()", 60 * 1000);
+    }, (60 - date.getSeconds()) * 1000);
+
+    var minutes = (24 - date.getHours() - 1) * 60 + 60 - date.getMinutes();
+    var seconds =  minutes * 60 + 60 - date.getSeconds();
+    setTimeout(function () {
+        location.reload();
+    }, seconds * 1000);
+
+</script>
+</body>
+</html>
