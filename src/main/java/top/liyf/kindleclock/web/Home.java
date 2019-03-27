@@ -22,8 +22,8 @@ public class Home {
     public String index(Model model) {
 
         CountDown countDown = new CountDown();
-        countDown.setName("春节");
-        LocalDate cj = LocalDate.of(2019, 2, 5);
+        countDown.setName("劳动节");
+        LocalDate cj = LocalDate.of(2019, 5, 1);
         countDown.setDays(TimeUtil.intervalDays(ZonedDateTime.of(cj, LocalTime.MIN, ZoneIdUtil.get())));
         model.addAttribute(countDown);
 
